@@ -6,7 +6,8 @@ twitterHTTPClient.py - Takes the Twitter API developer keys and opens a socket
 that allows connections on a local port. The socket streams data directly from
 Twitter using the "tweepy" library for Twitter API access. In this implementation,
 the tags '#', 'content', and 'delivery' are tracked due to the API limitations
-for standard accounts.
+for standard accounts. It is important that this program is executed first because
+sparkStreaming binds to it.
 
 sparkStreaming.py - Connects to the twitterHTTPClient over a local port and begins
 reading the streaming tweets. Puts all the hashtags into lower case and ensures
@@ -15,6 +16,9 @@ Dataproc cluster to aggregate the hashtags and sum all of the counts. The interm
 results are stored in a bucket and the final results are written to a SQL database.
 The streaming time is currently set to 20 minutes, but can easily be adjusted with the
 STREAMTIME variable.
+
+config_instructions.txt - Instructions for options needed in Dataproc cluster creation
+and commands that need to be run on the cluster to execute the software.
 
 ## Data Visualization
 
