@@ -1,0 +1,21 @@
+
+
+Create cluster on Google Cloud Dataproc
+
+gcloud beta dataproc clusters create test-cluster \
+--optional-components=ANACONDA,JUPYTER \
+--image-version=preview --enable-component-gateway \
+--metadata 'PIP_PACKAGES=requests_oauthlib google-cloud-bigquery tweepy' \
+--metadata gcs-connector-version=1.9.16 \
+--metadata bigquery-connector-version=0.13.16 \
+--bucket big-data-columbia \
+--initialization-actions=gs://dataproc-initialization-actions/python\
+/pip-install.sh,gs://dataproc-initialization-actions/connectors/\
+connectors.sh \
+--single-node
+
+Submit spark jobs to Dataproc cluster
+
+gcloud dataproc jobs submit pyspark --cluster test-cluster twitterHTTPClient.py
+
+gcloud dataproc jobs submit pyspark --cluster test-cluster sparkStreaming.py
